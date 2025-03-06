@@ -5,10 +5,12 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import Command
 from openai import AsyncOpenAI
 
-TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-GPT_API_KEY = "YOUR_OPENAI_API_KEY"
-OWNER_ID = YOUR_TELEGRAM_ID  # Замени на свой Telegram ID
-POST_CHANNEL_ID = "@your_post_channel"  # Канал для публикации
+TOKEN = "8018490095:AAEJv1vE8uTJphxj60iCIYlYTk4KHVIZAQE"
+GPT_API_KEY = "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
+"
+OWNER_ID = 5199389343
+ # Замени на свой Telegram ID
+POST_CHANNEL_ID = "@resendbottest"  # Канал для публикации
 db_channels = set()  # Храним ID каналов для мониторинга
 
 bot = Bot(token=TOKEN)
