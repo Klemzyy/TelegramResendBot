@@ -14,9 +14,9 @@ async def start(update: Update, context: CallbackContext):
     await update.message.reply_text("Привет! Я ваш бот.")
 
 async def main():
-    """Создаем и запускаем бота без конфликта с event loop"""
+    """Создаем и запускаем бота"""
     app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
-    
+
     # Добавляем обработчики команд
     app.add_handler(CommandHandler("start", start))
 
@@ -25,9 +25,9 @@ async def main():
     # Запускаем бота
     await app.run_polling()
 
-# Проверяем, есть ли активный event loop
-try:
-    loop = asyncio.get_running_loop()
-    loop.create_task(main())  # Если event loop уже запущен, создаём задачу
-except RuntimeError:
-    asyncio.run(main())  # Если event loop нет, запускаем стандартно
+# Используем альтернативный способ запуска
+if __name__ == "__main__":
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.create_task(main())  # Запускаем бота в виде фоновой задачи
+    loop.run_forever()  # Держим event loop активным
