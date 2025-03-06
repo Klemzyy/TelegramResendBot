@@ -12,13 +12,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Получаем переменные окружения
-TELEGRAM_BOT_TOKEN = os.getenv("8018490095:AAEJv1vE8uTJphxj60iCIYlYTk4KHVIZAQE")
-API_ID = os.getenv("28160802")
-API_HASH = os.getenv("748cd0e4a6267519dae9405c81a556c9")
-OPENAI_API_KEY = os.getenv("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
-")
-OWNER_ID = os.getenv("5199389343
-")  # ID владельца бота
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+API_ID = os.getenv("TELEGRAM_API_ID")
+API_HASH = os.getenv("TELEGRAM_API_HASH")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OWNER_ID = os.getenv("OWNER_ID")  # ID владельца бота
 
 if not all([TELEGRAM_BOT_TOKEN, API_ID, API_HASH, OPENAI_API_KEY, OWNER_ID]):
     raise ValueError("Не заданы переменные окружения!")
