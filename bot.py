@@ -1,47 +1,34 @@
 import asyncio
 import logging
-import sys
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler
+from telegram import Update
+from telegram.ext import Application, CommandHandler, CallbackContext
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Токен бота (замени на свой)
+# Токен бота
 TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN"
 
-# Обработчики команд
-async def canal(update, context):
-    await update.message.reply_text("Канал обработан!")
+async def start(update: Update, context: CallbackContext):
+    await update.message.reply_text("Привет! Я ваш бот.")
 
-async def add(update, context):
-    await update.message.reply_text("Добавлено!")
-
-async def remove(update, context):
-    await update.message.reply_text("Удалено!")
-
-async def button(update, context):
-    await update.callback_query.answer("Кнопка нажата!")
-
-# Главная асинхронная функция
 async def main():
-    # Создание приложения Telegram бота
+    """Основная асинхронная функция запуска бота"""
     app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
-
-    # Добавление обработчиков
-    app.add_handler(CommandHandler("canal", canal))
-    app.add_handler(CommandHandler("add", add))
-    app.add_handler(CommandHandler("remove", remove))
-    app.add_handler(CallbackQueryHandler(button))
+    
+    # Добавляем обработчики команд
+    app.add_handler(CommandHandler("start", start))
 
     logger.info("🤖 Бот успешно запущен и слушает команды...")
-
-    # Запуск бота в режиме опроса
+    
+    # Запускаем бота без создания нового event loop
     await app.run_polling()
 
-# Точка входа
+# Проверяем, запущен ли event loop
 if __name__ == "__main__":
-    if sys.platform == "win32":
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
-    asyncio.run(main())  # Корректный запуск event loop
+    try:
+        asyncio.run(main())  # Запуск бота
+    except RuntimeError:
+        loop = asyncio.get_event_loop()
+        loop.create_task(main())  # Запускаем бота в текущем event loop
