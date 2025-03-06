@@ -3,7 +3,9 @@ import logging
 import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.utils.executor import start_webhook
+from aiogram import Bot, Dispatcher
+from aiogram.types import Update
+from aiogram.utils.webhook import WebhookRunner
 import openai
 
 # Загружаем переменные окружения
