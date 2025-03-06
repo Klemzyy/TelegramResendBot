@@ -114,14 +114,15 @@ async def main():
     await client.start()
     logger.info("Bot is running...")
     await asyncio.Event().wait()
-
+    
 if __name__ == "__main__":
     import sys
     if sys.platform == "win32":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
     loop = asyncio.get_event_loop()
-    if loop.is_running():
-        loop.create_task(main())
-    else:
-        loop.run_until_complete(main())
+    
+    try:
+        loop.run_until_complete(main())  # Запускаем main() внутри текущего event loop
+    except RuntimeError:
+        loop.create_task(main())  # Если loop уже запущен, создаем таск вместо нового запуска
