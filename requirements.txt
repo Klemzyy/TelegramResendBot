@@ -2,3 +2,4 @@ python-telegram-bot
 telethon
 aiogram==3.1.1
 openai
+python-dotenv
